@@ -1,0 +1,29 @@
+{
+  "name": "asabranca",
+  "version": "1.0.0",
+  "description": "A crawler used to generate data for Gyro",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Log-Severity-Level/asabranca.git"
+  },
+  "keywords": [
+    "crawler",
+    "jira",
+    "issues"
+  ],
+  "author": "Eduardo Mendes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Log-Severity-Level/asabranca/issues"
+  },
+  "homepage": "https://github.com/Log-Severity-Level/asabranca#readme",
+  "dependencies": {
+    "puppeteer": "^19.11.1"
+  }
+}
