@@ -24,6 +24,10 @@
   },
   "homepage": "https://github.com/Log-Severity-Level/asabranca#readme",
   "dependencies": {
+    "csv-writer": "^1.6.0",
+    "fs": "^0.0.1-security",
+    "p-limit": "^4.0.0",
+    "papaparse": "^5.4.1",
     "puppeteer": "^19.11.1"
   }
 }

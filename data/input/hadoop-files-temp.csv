@@ -1,0 +1,7 @@
+"url","branch_name"
+"https://github.com/apache/hadoop/blob/rel/release-2.10.0/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/namenode/FSDirAttrOp.java","Hadoop/rel/release-2.10.0"
+"https://github.com/apache/hadoop/blob/rel/release-2.10.0/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/namenode/ha/BootstrapStandby.java","Hadoop/rel/release-2.10.0"
+"https://github.com/apache/hadoop/blob/rel/release-2.10.0/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/timelineservice/NMTimelinePublisher.java","Hadoop/rel/release-2.10.0"
+"https://github.com/apache/hadoop/blob/rel/release-2.10.1/hadoop-hdfs-project/hadoop-hdfs-client/src/main/java/org/apache/hadoop/hdfs/server/namenode/ha/ObserverReadProxyProvider.java","Hadoop/rel/release-2.10.1"
+"https://github.com/apache/hadoop/blob/rel/release-2.10.1/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/CapacityScheduler.java","Hadoop/rel/release-2.10.1"
+"https://github.com/apache/hadoop/blob/rel/release-2.10.1/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/main/java/org/apache/hadoop/yarn/server/resourcemanager/scheduler/capacity/ParentQueue.java","Hadoop/rel/release-2.10.1"
