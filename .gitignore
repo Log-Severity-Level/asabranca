@@ -134,6 +134,5 @@ dist
 
 # output data files
 /data/output
-./*.csv
 
 **/.DS_Store
