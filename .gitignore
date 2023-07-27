@@ -133,5 +133,5 @@ dist
 *.deprecated
 
 # output data files
-./data/output
+/data/output
 ./*.csv
