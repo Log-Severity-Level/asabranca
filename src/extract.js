@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import fs from 'fs'
+import fs from 'fs';
 import csvWriter from 'csv-writer';
 import Papa from 'papaparse';
 import pLimit from 'p-limit';
