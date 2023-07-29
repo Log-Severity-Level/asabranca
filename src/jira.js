@@ -2,6 +2,8 @@ import axios from 'axios';
 import csvWriter from 'csv-writer';
 import Papa from 'papaparse';
 import fs from 'fs'
+import { removeConfluenceSyntax } from '../src/regular-expressions.js';
+import keywords from '../src/keywords.js';
 
 import pLimit from 'p-limit';
 
@@ -10,6 +12,8 @@ const limit = pLimit(CONCURRENCY_LIMIT);
 
 
 const jiraHost = 'https://issues.apache.org/jira/rest/api/2/issue';  // Substitua pela URL da sua instância do JIRA
+const levelKeywordsPattern = new RegExp(`(${keywords.join('|')})`, 'i');
+
 
 function createWriter(outputPathFile) {
     return csvWriter.createObjectCsvWriter({
@@ -35,11 +39,36 @@ async function getIssueDetails(key) {
     };
 }
 
+function filterText(text) {  
+    if (levelKeywordsPattern.test(text)) {
+        return text;
+    }
+    return "[Comment excluded]";
+}
+
+function formatComment(comment, i) {
+    if (!comment || !comment.body) {
+        return '';
+    }
+
+    let body = comment.body;
+    body = removeConfluenceSyntax(body);
+    body = filterText(body);
+    if (i == 0) {
+        body = "\n=== Comment " + (i + 1) + " ====\n" + body + "\n"
+    } else {
+        body = "=== Comment " + (i + 1) + " ====\n" + body + "\n"
+    }
+        
+
+    return body;
+}
+
 async function getComments(key) {
     // console.log(`${jiraHost}/${key}`)
     const response = await axios.get(`${jiraHost}/${key}/comment`);
 
-    return response.data.comments.map(comment => comment.body);
+    return response.data.comments.map(formatComment);
 }
 
 async function processIssue(key) {
@@ -61,7 +90,6 @@ async function processIssues(keys) {
     return data;
 }
 
-
 /**
  * This method processes a CSV file containing a list of URLs 
  * and extracts the Jira issue ID and link from each URL.
@@ -81,12 +109,21 @@ export async function processFileUrls(inputFilePath, outputPathFile) {
             const task = limit(async () => {
                 const issueData = await processIssue(jira_id);
                 if (issueData) {
-                    return {
-                        key: issueData.key,
-                        summary: issueData.summary,
-                        description: issueData.description,
-                        comments: issueData.comments,
-                    };
+                    if (levelKeywordsPattern.test(issueData.summary)) {
+                        return {
+                            key: issueData.key,
+                            summary: issueData.summary,
+                            description: issueData.description,
+                            comments: issueData.comments,
+                        };
+                    } else {
+                        return {
+                            key: issueData.key,
+                            summary: "Excluded issue",
+                            description: "",
+                            comments: "",
+                        };
+                    }
                 }
                 return null;
             });
@@ -95,6 +132,7 @@ export async function processFileUrls(inputFilePath, outputPathFile) {
         complete: async function() {
             // Wait for all tasks to complete
             const data = await Promise.all(tasks);
+            console.log("Total issues processed:" + data.length);
             await writer.writeRecords(data.filter(item => item !== null));
         }
     });
