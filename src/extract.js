@@ -64,10 +64,10 @@ export async function processFileUrls(inputFilePath, outputPathFile) {
   Papa.parse(file, {
       header: true,
       step: function(results) {
-          const row = results.data;
-          const url = row.url;
+        const row = results.data;
+        const url = row.url;
 
-          const task = limit(async () => {
+        const task = limit(async () => {
             const issueData = await extractJiraIssueFromFile(browser, url);
             if (issueData) {
                 return {
