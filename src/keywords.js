@@ -30,4 +30,6 @@ const keywords = [
 ]
 ;
 
-export default keywords;
+const levelKeywordsPattern = new RegExp(`(${keywords.join('|')})`, 'i');
+
+export default levelKeywordsPattern;

@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "test",
-    "start": "node index.js"
+    "start": "node index.js",
+    "jira": "node jira-details.js",
+    "all": "node all.js"
   },
   "repository": {
     "type": "git",
