@@ -2,7 +2,7 @@
 
 A crawler to grab Jira data (issue id and issue link) from a GitHub file url.
 
-## Usage
+## Usage - Issue id and link
 
 Use the command *npm-start* with two arguments:
 
@@ -13,4 +13,10 @@ Use the command *npm-start* with two arguments:
 
 ```
   npm start data/input/hadoop-files-temp.csv data/output/issues-temp.csv
+```
+
+## Usage - Issue summary, description and comments
+
+```
+  npm run jira data/input/hadoop-files-temp.csv data/output/issues-temp.csv
 ```
