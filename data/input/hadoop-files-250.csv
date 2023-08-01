@@ -1,0 +1,7 @@
+"url","branch_name"
+"https://github.com/apache/hadoop/blob/rel/release-3.3.0/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-common/src/test/java/org/apache/hadoop/yarn/util/TestLog4jWarningErrorMetricsAppender.java","Hadoop/rel/release-3.3.0"
+"https://github.com/apache/hadoop/blob/rel/release-3.3.0/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/AuxServices.java","Hadoop/rel/release-3.3.0"
+"https://github.com/apache/hadoop/blob/rel/release-3.3.0/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/application/ApplicationImpl.java","Hadoop/rel/release-3.3.0"
+"https://github.com/apache/hadoop/blob/release-0.10.1/src/java/org/apache/hadoop/mapred/MapTask.java","Hadoop/release-0.10.1"
+"https://github.com/apache/hadoop/blob/release-0.11.1/src/java/org/apache/hadoop/dfs/FSNamesystem.java","Hadoop/release-0.11.1"
+"https://github.com/apache/hadoop/blob/release-0.13.0/src/java/org/apache/hadoop/dfs/DFSClient.java","Hadoop/release-0.13.0"
