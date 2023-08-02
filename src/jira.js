@@ -16,7 +16,7 @@ function createWriter(outputPathFile) {
     return csvWriter.createObjectCsvWriter({
         path: outputPathFile,  // Path to the output CSV file
         header: [
-            { id: 'id', title: 'Key' },
+            { id: 'id', title: 'ID' },
             { id: 'summary', title: 'Summary' },
             { id: 'description', title: 'Description' },
             { id: 'comments', title: 'Comments' }
