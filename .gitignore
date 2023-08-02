@@ -132,6 +132,7 @@ dist
 # deprecated
 *.deprecated
 /data/deprecated/*
+/data/input/temp/
 
 # output data files
 /data/output
