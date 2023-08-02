@@ -8,7 +8,7 @@
     "test": "test",
     "start": "node index.js",
     "step1": "node extract-jira-from-git.js",
-    "step2": "node extract-jira-detais-from-id.js"
+    "step2": "node extract-jira-details-from-id.js"
   },
   "repository": {
     "type": "git",
