@@ -2,54 +2,50 @@ import axios from 'axios';
 import csvWriter from 'csv-writer';
 import Papa from 'papaparse';
 import fs from 'fs'
-import { removeConfluenceSyntax } from '../src/regular-expressions.js';
+import { formatComment } from './text-processing.js';
 import levelKeywordsPattern from '../src/keywords.js';
+import { jiraHost } from '../src/config.js';
+import { createIssueDetailsWriter } from '../src/csvOperations.js';
 
 import pLimit from 'p-limit';
 
 const CONCURRENCY_LIMIT = 5;  // Adjust this value according to your needs
 const limit = pLimit(CONCURRENCY_LIMIT);
 
-const jiraHost = 'https://issues.apache.org/jira/rest/api/2/issue';  // Substitua pela URL da sua instância do JIRA
+/**
+ * This method extracts the Jira issue ID and link from a given URL.  
+ */
+export async function extractJiraIssueFromFile(browser, url) {
+    const page = await browser.newPage();
 
-function createWriter(outputPathFile) {
-    return csvWriter.createObjectCsvWriter({
-        path: outputPathFile,  // Path to the output CSV file
-        header: [
-            { id: 'id', title: 'ID' },
-            { id: 'summary', title: 'Summary' },
-            { id: 'description', title: 'Description' },
-            { id: 'comments', title: 'Comments' }
-        ],
-    })
-}
+    await page.goto(url);
 
-function filterText(text) {
-    if (levelKeywordsPattern.test(text)) {
-        return text;
-    }
-    return "[Comment excluded]";
-}
+    let issueData = null;
+    try {
+        await page.waitForSelector('a.issue-link', { timeout: 3000 });
 
-function formatComment(comment, i) {
-    if (!comment || !comment.body) {
-        return '';
-    }
-
-    let body = comment.body;
-    body = removeConfluenceSyntax(body);
-    body = filterText(body);
-    if (i == 0) {
-        body = "\n=== Comment " + (i + 1) + " ====\n" + body + "\n"
-    } else {
-        body = "=== Comment " + (i + 1) + " ====\n" + body + "\n"
+        issueData = await page.evaluate(() => {
+            const link = document.querySelector('a.issue-link');
+            return {
+                link: link.href,
+                id: link.textContent,
+            };
+        });
+    } catch (error) {
+        console.error(`[INFO] The 'a.issue-link' element for ${url} doens't exist:`);
+        issueData = {
+            link: "null",
+            id: "null",
+        }
     }
 
-    return body;
+    await page.close();
+    // console.log(issueData);
+    return issueData;
 }
 
 async function getIssueDetails(key) {
-    console.log(`${jiraHost}/${key}`);
+    console.log(`${jiraHost}/${key}`)
     const response = await axios.get(`${jiraHost}/${key}`).catch((error) => {
         console.log("===== ERROR ===== on issue " + key);
         return {
@@ -73,7 +69,24 @@ async function getComments(key) {
     return response.data.comments.map(formatComment);
 }
 
+/**
+ * Verify if the key is a valid Jira issue ID
+ * @param {string} key 
+ * @returns true if the key is an invalid Jira issue ID
+ */
+function invalidId(key) {
+    return key.substring(0, 1) == "#";
+}
+
 export async function processIssue(key) {
+    if (invalidId(key)) {
+        return {
+            id: key,
+            summary: "null",
+            description: "null",
+            comments: "null",
+        };
+    }
     const issueDetails = await getIssueDetails(key);
     const comments = await getComments(key);
 
@@ -81,15 +94,6 @@ export async function processIssue(key) {
         ...issueDetails,
         comments: comments.join('\n'),
     };
-}
-
-async function processIssues(keys) {
-    const data = [];
-    for (const key of keys) {
-        const issueData = await processIssue(key);
-        data.push(issueData);
-    }
-    return data;
 }
 
 /**
@@ -100,7 +104,7 @@ async function processIssues(keys) {
 export async function processJiraUrls(inputFilePath, outputPathFile) {
     const file = fs.createReadStream(inputFilePath);
     const tasks = [];
-    const writer = createWriter(outputPathFile);
+    const writer = createIssueDetailsWriter(outputPathFile);
 
     Papa.parse(file, {
         header: true,
