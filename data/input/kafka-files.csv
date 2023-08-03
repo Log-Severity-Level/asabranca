@@ -1,4 +1,4 @@
-"url","branch_name","version_2","version2_2","version3_2"
+"git_url","branch_name","version_2","version2_2","version3_2"
 "https://github.com/apache/kafka/blob/0.9.0.0/clients/src/main/java/org/apache/kafka/clients/consumer/KafkaConsumer.java","Kafka/0.9.0.0",0,9,0
 "https://github.com/apache/kafka/blob/0.9.0.0/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java","Kafka/0.9.0.0",0,9,0
 "https://github.com/apache/kafka/blob/0.10.0.0/clients/src/main/java/org/apache/kafka/clients/consumer/internals/AbstractCoordinator.java","Kafka/0.10.0.0",0,10,0

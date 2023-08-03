@@ -1,4 +1,4 @@
-"url","branch_name","version_2","version2_2","version3_2"
+"git_url","branch_name","version_2","version2_2","version3_2"
 "https://github.com/apache/hbase/blob/0.1.1/src/java/org/apache/hadoop/hbase/HStore.java","HBase/0.1.1",0,1,1
 "https://github.com/apache/hbase/blob/0.1.3/src/java/org/apache/hadoop/hbase/HLog.java","HBase/0.1.3",0,1,3
 "https://github.com/apache/hbase/blob/release-0.2.0/src/test/org/apache/hadoop/hbase/HBaseTestCase.java","HBase/release-0.2.0",0,2,0

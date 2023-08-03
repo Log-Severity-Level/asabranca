@@ -1,4 +1,4 @@
-"url","branch_name","version_2","version2_2","version3_2"
+"git_url","branch_name","version_2","version2_2","version3_2"
 "https://github.com/apache/hadoop/blob/release-0.2.0/src/java/org/apache/hadoop/dfs/FSNamesystem.java","Hadoop/release-0.2.0",0,2,0
 "https://github.com/apache/hadoop/blob/release-0.2.0/src/java/org/apache/hadoop/dfs/NameNode.java","Hadoop/release-0.2.0",0,2,0
 "https://github.com/apache/hadoop/blob/release-0.3.0/src/java/org/apache/hadoop/conf/Configuration.java","Hadoop/release-0.3.0",0,3,0
