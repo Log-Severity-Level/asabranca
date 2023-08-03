@@ -9,9 +9,9 @@ A crawler to grab Jira data from a GitHub file url.
 Use the command *npm-start* with two arguments:
 
 - *inputPathFile*: a csv file with the github file urls.
-  - format: *url*,*branch_name*
+  - format: *git_url*, *branch_name*
 - *outputPathFile*: the file with the Jira details
-  - format: *Issue ID,Issue Link,Summary,Summary Relevance,Description,Comments,File URL*
+  - format: *Issue ID, Issue Link, Summary, Summary Relevance, Description, Comments, File URL*
 
 **Example**
 
@@ -31,9 +31,9 @@ You have the option of using the steps separately, as follows.
 Use the command *npm run step1* with two arguments:
 
 - *inputPathFile*: a csv file with the github file urls.
-  - format: *url*,*branch_name*
+  - format: *git_url*,*branch_name*
 - *outputPathFile*: the file path to record the jira issue data.
-  - format: *Issue ID,Issue Link,URL*
+  - format: *Issue ID, Issue Link, URL*
 
 **Example**
 
@@ -44,9 +44,9 @@ Use the command *npm run step1* with two arguments:
 ### Only Step 2 - Issue summary, description and comments
 
 - *inputPathFile*: a csv file with the Jira IDs
-  - format: *url*,*branch_name*
+  - format: *Issue ID, Issue Link, URL*
 - *outputPathFile*: the file path to record the jira issue data.
-  - format: *ID,Summary,Description,Comments*
+  - format: *ID, Summary, Description, Comments*
 
 **Example**
 ```
