@@ -1,3 +1,5 @@
+import levelKeywordsPattern from '../src/keywords.js';
+
 /**
  * Remove noformat {noformat} formatting from text
  * @param {string} text 
@@ -102,4 +104,42 @@ export function removeConfluenceSyntax(text) {
   text = removeImage(text);
 
   return text;
+}
+
+/**
+ * Filter text by keywords from keywords.js
+ * If text contains any of the keywords, return text
+ * Otherwise, return [Comment excluded]
+ * @param {string} text 
+ * @returns the text or [Comment excluded]
+ */
+export function filterText(text) {
+  if (levelKeywordsPattern.test(text)) {
+      return text;
+  }
+  return "[Comment excluded]";
+}
+
+/**
+ * Format comment by removing confluence syntax and filtering by keywords
+ * Each comment is separated by === Comment i ===
+ * @param {string} comment 
+ * @param {Number} i 
+ * @returns the comment filtered and formatted
+ */
+export function formatComment(comment, i) {
+  if (!comment || !comment.body) {
+      return '';
+  }
+
+  let body = comment.body;
+  body = removeConfluenceSyntax(body);
+  body = filterText(body);
+  if (i == 0) {
+      body = "\n=== Comment " + (i + 1) + " ====\n" + body + "\n"
+  } else {
+      body = "=== Comment " + (i + 1) + " ====\n" + body + "\n"
+  }
+
+  return body;
 }
