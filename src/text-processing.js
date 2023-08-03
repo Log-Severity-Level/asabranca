@@ -33,6 +33,16 @@ function removeFiles(text) {
 }
 
 /**
+ * Remove file indicators * (edit) [file java]
+ * @param {string} text
+ * @returns text without file indicators
+ */
+function removeFileIndicator(text) {
+  text = text.replace(/^\* \(edit\) \[file java\]\s*$/gm, '');
+  return text;
+}
+
+/**
  * Remove links as http://www.google.com
  * @param {string} text 
  * @returns text without links
@@ -88,6 +98,14 @@ function removeColor(text) {
 }
 
 /**
+ *  Remove empty lines
+ * @param {string} text
+ * @returns 
+ */
+function removeEmptyLines(text) {
+  return text.replace(/^\s*[\r\n]/gm, '');
+}
+/**
  * Remove confluence formatting from text
  * @param {string} text 
  * @returns text without confluence formatting
@@ -101,7 +119,9 @@ export function removeConfluenceSyntax(text) {
   text = removeConfluencyLink(text);
   text = removeLink(text);
   text = removeFiles(text);
+  text = removeFileIndicator(text);
   text = removeImage(text);
+  text = removeEmptyLines(text);
 
   return text;
 }

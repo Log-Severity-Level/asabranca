@@ -1,6 +1,6 @@
-import { processFileUrls } from "./src/extract.js";
+import { extractJiraIssuesFromGitUrlsToCsv } from "./src/extractor.js";
 
 const inputFilePath = process.argv[2];
 const outputFilePath = process.argv[3];
 
-processFileUrls(inputFilePath, outputFilePath);
+extractJiraIssuesFromGitUrlsToCsv(inputFilePath, outputFilePath);
