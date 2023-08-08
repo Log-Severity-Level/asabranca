@@ -9,7 +9,8 @@
     "start": "node index.js",
     "step1": "node extract-jira-from-git.js",
     "step2": "node extract-jira-details-from-id.js",
-    "filter-null": "node filterNullIssuesFromFullReportToCsv"
+    "filter-null": "node filterNullIssuesFromFullReportToCsv",
+    "filter-duplicates": "node filterDuplicatesFromReportToCsv"
   },
   "repository": {
     "type": "git",

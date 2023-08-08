@@ -287,3 +287,39 @@ export async function filterNullIssuesFromFullReportToCsv(inputFilePath, outputP
         }
     });
 }
+
+/**
+ * Filter duplicates from report
+ * This method processes a CSV file containing a list of jira issue details
+ * and filter duplicate issues from the given jira issue details
+ * @param {string} inputFilePath
+ * @param {string} outputPathFile
+ */
+export async function filterDuplicatesFromReportToCsv(inputFilePath, outputPathFile) {
+    const file = fs.createReadStream(inputFilePath);
+    const tasks = [];
+    const seenIssueIds = new Set(); 
+    const writer = createFullReportWriter(outputPathFile);
+
+    Papa.parse(file, {
+        header: true,
+        step: function (results) {
+            const issueData = results.data;
+            const jira_id = issueData["Issue ID"];
+            
+            if (jira_id !== NULL_VALUE && !seenIssueIds.has(jira_id)) {
+                seenIssueIds.add(jira_id);
+                tasks.push(buildFilterIssueRecord(issueData));            
+            }
+        },
+        complete: async function () {
+            // Wait for all tasks to complete
+            const data = tasks;
+            logger.info("Final total issues: " + data.length);
+            await writer.writeRecords(data.filter(item => item !== null));
+        },
+        error: function (error) {  
+            logger.error(error);
+        }
+    });
+}
