@@ -103,6 +103,26 @@ function buildFullIssueRecord(url, issueData, issueDetails) {
 }
 
 /**
+ * This method builds a record containing the Jira issue details from a given Jira issue ID.
+ * @param {string} url - the Git file URL
+ * @param {object} issueData - an object containing the Jira issue ID and link
+ * @param {object} issueDetails - an object containing the Jira issue details
+ * @returns - an object containing the Jira issue details from a given Jira issue ID.
+ */
+function buildFilterIssueRecord(issueData) {
+    return {
+        git_url: issueData["Git URL"],
+        issue_link: issueData["Issue Link"],
+        issue_id: issueData["Issue ID"],
+        issue_summary: issueData["Summary"],
+        issue_summary_relevance: issueData["Summary Relevance"],
+        issue_description: issueData["Description"],
+        issue_comments: issueData["Comments"]
+    };
+}
+    
+
+/**
  * Step 1 - Extract Jira issue ID and link from a given URL
  * This method processes a CSV file containing a list of URLs 
  * and extract Jira issue ID and link from the given URLs.
@@ -193,7 +213,7 @@ export async function extractJiraIssuesDetailsFromIdsToCsv(inputFilePath, output
  * @param {string} inputFilePath
  * @param {string} outputPathFile
  */
-export async function processAll(inputFilePath, outputPathFile) {
+export async function fullExtract(inputFilePath, outputPathFile) {
     const file = fs.createReadStream(inputFilePath);
     const browser = await puppeteer.launch();
     const tasks = [];
@@ -230,6 +250,40 @@ export async function processAll(inputFilePath, outputPathFile) {
             
             await writer.writeRecords(data.filter(item => item !== null));
             await browser.close();
+        }
+    });
+}
+
+/**
+ * Filter null issues from full report
+ * This method processes a CSV file containing a list of jira issue details
+ * and filter null issues from the given jira issue details
+ * @param {string} inputFilePath
+ * @param {string} outputPathFile
+ */
+export async function filterNullIssuesFromFullReportToCsv(inputFilePath, outputPathFile) {
+    const file = fs.createReadStream(inputFilePath);
+    const tasks = [];
+    const writer = createFullReportWriter(outputPathFile);
+
+    Papa.parse(file, {
+        header: true,
+        step: function (results) {
+            const issueData = results.data;
+            const jira_id = issueData["Issue ID"];
+            
+            if (jira_id !== NULL_VALUE) {
+                tasks.push(buildFilterIssueRecord(issueData));            
+            }
+        },
+        complete: async function () {
+            // Wait for all tasks to complete
+            const data = tasks;
+            logger.info("Final total issues: " + data.length);
+            await writer.writeRecords(data.filter(item => item !== null));
+        },
+        error: function (error) {  
+            logger.error(error);
         }
     });
 }
