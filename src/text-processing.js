@@ -155,11 +155,8 @@ export function formatComment(comment, i) {
   let body = comment.body;
   body = removeConfluenceSyntax(body);
   body = filterText(body);
-  if (i == 0) {
-      body = "\n=== Comment " + (i + 1) + " ====\n" + body + "\n"
-  } else {
-      body = "=== Comment " + (i + 1) + " ====\n" + body + "\n"
-  }
-
+  
+  body = "** Comment " + (i + 1) + " **\n" + body + "\n"
+  
   return body;
 }

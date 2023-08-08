@@ -25,7 +25,7 @@ export async function extractJiraIssueFromFile(browser, url) {
             };
         });
     } catch (error) {
-        logger.info(`[INFO] The 'a.issue-link' element for ${url} doens't exist:`);
+        logger.info(`The 'a.issue-link' element for ${url} doens't exist:`);
         issueData = {
             link: "null",
             id: "null",
