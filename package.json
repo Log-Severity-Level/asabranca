@@ -8,7 +8,8 @@
     "test": "test",
     "start": "node index.js",
     "step1": "node extract-jira-from-git.js",
-    "step2": "node extract-jira-details-from-id.js"
+    "step2": "node extract-jira-details-from-id.js",
+    "filter-null": "node filterNullIssuesFromFullReportToCsv"
   },
   "repository": {
     "type": "git",
