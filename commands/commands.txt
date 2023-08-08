@@ -1,0 +1,11 @@
+npm start data/input/hadoop-files-without-system.csv data/output/hadoop-jira-without-system.csv
+npm run filter-null data/output/hadoop-jira-without-system.csv data/output/filter-null/hadoop-jira-without-system-filtered.csv 
+npm run filter-duplicates data/output/filter-null/hadoop-jira-without-system-filtered.csv data/output/filter-duplicate/hadoop-jira-without-duplicate.csv
+
+npm start data/input/hbase-files-without-system.csv data/output/hbase-jira-without-system.csv
+npm run filter-null data/output/hbase-jira-without-system.csv data/output/filter-null/hbase-jira-without-system-filtered.csv 
+npm run filter-duplicates data/output/filter-null/hbase-jira-without-system-filtered.csv data/output/filter-duplicate/hbase-jira-without-duplicate.csv
+
+npm start data/input/kafka-files-without-system.csv data/output/kafka-jira-without-system.csv
+npm run filter-null data/output/kafka-jira-without-system.csv data/output/filter-null/kafka-jira-without-system-filtered.csv 
+npm run filter-duplicates data/output/filter-null/kafka-jira-without-system-filtered.csv data/output/filter-duplicate/kafka-jira-without-duplicate.csv
