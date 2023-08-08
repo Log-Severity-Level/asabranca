@@ -177,7 +177,7 @@ export async function extractJiraIssuesDetailsFromIdsToCsv(inputFilePath, output
         complete: async function () {
             // Wait for all tasks to complete
             const data = await Promise.all(tasks);
-            logger.info("Total issues processed:" + data.length);
+            logger.info("Total files processed:" + data.length);
             await writer.writeRecords(data.filter(item => item !== null));
         }
     });
@@ -226,7 +226,7 @@ export async function processAll(inputFilePath, outputPathFile) {
         complete: async function () {
             // Wait for all tasks to complete
             const data = await Promise.all(tasks);
-            logger.info("Total issues processed:" + data.length);
+            logger.info("Total files processed:" + data.length);
             
             await writer.writeRecords(data.filter(item => item !== null));
             await browser.close();
